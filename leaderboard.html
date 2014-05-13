@@ -1,0 +1,57 @@
+<head>
+  <title>Meal Board</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div id="outer">
+    {{> leaderboard}}
+  </div>
+</body>
+
+<template name="leaderboard">
+  <div class="container leaderboard">
+    {{#each players}}
+      {{> player}}
+    {{/each}}
+  </div>
+
+  {{#if selected_name}}
+  <div class="container details">
+    <div class="name">{{selected_name}}</div>
+    {{#if selected_in_rotation}}
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6">
+				<input type="button" class="btn btn-primary btn-block give-dinner" value="Give Dinner Mark" />
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6">
+				<input type="button" class="btn btn-primary btn-block give-lunch" value="Give Lunch Mark" />
+			</div>
+		</div>
+		{{/if}}
+		
+		<input type="number" class="update-score" value="{{selected_score}}" min="0" />
+  </div>
+  {{/if}}
+
+  {{#unless selected_name}}
+  <div class="none">Click a player to select</div>
+  {{/unless}}
+</template>
+
+<template name="player">
+  <div class="row player {{selected}}">
+    <span class="col-xs-3 col-sm-3 col-md-3 chevrons">
+		{{#repeat dinnerMarks}}
+				<span class="dinner">&gt;</span>
+		{{/repeat}}
+		{{#repeat lunchMarks}}
+			<span class="lunch">&gt;</span>
+		{{/repeat}}
+		</span>
+    <span class="col-xs-6 col-sm-6 col-md-6 name">{{name}}</span>
+    <span class="col-xs-3 col-sm-3 col-md-3 score">{{score}}</span>
+  </div>
+</template>
+
